@@ -1,0 +1,405 @@
+\documentclass[10pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{graphicx}
+\usepackage{blindtext}
+\usepackage{ragged2e}
+\usepackage{doc}
+\usepackage{url}
+\usepackage{natbib}
+
+\newtheorem*{theorem}{Theorem}
+\theoremstyle{definition}
+\newtheorem*{definition}{Definition}
+
+\hoffset -1in \topmargin 0mm \voffset 0mm \headheight 0mm
+\headsep0mm
+\oddsidemargin  20mm     %   Left margin on odd-numbered pages.
+\evensidemargin 20mm     %   Left margin on even-numbered pages.
+\textwidth   170mm       %   Width of text line.
+\textheight  252mm
+
+\makeatletter
+\renewcommand\@openbib@code{%
+     \advance\leftmargin  \z@ %\bibindent
+      \itemindent \z@
+     % Move bibitems close together
+     \parsep -0.8ex
+     }
+\makeatother
+
+\makeatletter
+\renewcommand\section{\@startsection {section}{1}{\z@}%
+                                   {-3.5ex \@plus -1ex \@minus -.2ex}%
+                                   {1.5ex \@plus.2ex}%
+                                   {\large\bfseries}}
+\makeatother
+
+\makeatletter
+\renewcommand\subsection{\@startsection {subsection}{1}{\z@}%
+                                   {-3.5ex \@plus -1ex \@minus -.2ex}%
+                                   {1.5ex \@plus.2ex}%
+                                   {\normalsize\bfseries}}
+\makeatother
+
+\makeatletter
+	\setlength{\abovecaptionskip}{3pt}   % 0.25cm 
+	\setlength{\belowcaptionskip}{3pt}   % 0.25cm 
+\makeatother
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\pagestyle{empty}
+
+\begin{center}
+{\bf \Large ROBOTICKY ASISTOVANÁ CHIRURGIE}
+\end{center}
+
+\smallskip
+\begin{center}
+{\large Vojtěch Langer}
+\end{center}
+
+\smallskip
+\begin{center}
+Faculty of Mechanical Engineering, Brno University of Technology\\
+Institute of Automation and Computer Science\\
+Technicka 2896/2, Brno 616 69, Czech Republic\\
+Vojtech.Langer@vutbr.cz\\
+\end{center}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\bigskip
+\noindent Abstract:
+\textit{Tato zpráva pojednává o problematice roboticky asistované chirurgie.
+Jsou uvedeny možnosti, přednosti a úskalí roboticky asistované chirurgie,
+jací roboti jsou nejčastěji používáni a jaké druhy robotů a technologií
+jsou vyvíjeny a představovany v současných odborných pracích.}
+
+\vspace*{10pt}
+\noindent Keywords:
+\textit{minimally invasive surgery,
+laparoscopic, robot assisted surgery,
+surgical robotics, da Vinci}
+\bigskip
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Úvod}
+\label{sec:uvod}
+
+Roboticky asistovaná chirurgie je rychle rozvíjejícím se oborem.
+Pomocí robotické chirurgie mohou lékaři provádět jemné a složité postupy,
+které by u jiných metod mohly být velice obtížné.
+Proto již v roce 1985 byl použit první robot pro přesné navádění nástrojů při operaci.
+V současnosti se robotů využívá ve většině odvětví chirurgie a to především
+při minimálně invazivních zákrocích. \cite{mis_thesis},\cite{mis_mou}
+
+Minimally Invasive Surgery (MIS - minimálně invazivní chirurgie)
+poskytuje stejnou ne-li vyšší kvalitu zákroku, s výrazně menším vstupem
+oproti klasické otevřené operaci. Jedním z typů roboticky asistované MIS
+je také laparoskopie - druh břišní chirurgie, při které se na rozdíl od otevřené operace,
+provádějí úkony pod kontrolou kamery, bez přímého přístupu chirurga.
+Ze zdravotního pohledu, laparoskopie vyžaduje značnou dovednost,
+kvůli vnitřním technickým omezením, které mají za následek ztrátu
+koordinace oko-ruka a sníženou obratnost. Proto je laparoskopie
+jednou z disciplín moderní chirurgie, kde se s výhodou využívá robotů. \cite{minirobot}
+
+Hlavní výhodou roboticky asistované laparoskopie je jednodušší
+manipulace s nástroji než jaké může být dosaženo při klasické laparoskopii.
+Učící křivka pro úplné naučení ovládání robota je přibližně 10 provedených robotických
+zákroků, přičemž se operační doba sníží přibližně na polovinu. Hlavním omezením je velký průměr
+nástrojů $8mm$ a omezené množství robotických rukou. Omezený počet
+robotických rukou a nástrojů je pak obzvlášť poznatelný při zvládání krvácení. \cite{plusminus},\cite{robot_vs_video}
+
+Pro pacienta je možnost MIS zásadní výhodou. Rány vzniklé při robotické operaci
+jsou mnohem menší a odpadají problémy s jejich hojením. 
+Rekonvalescence a návrat do běžného života jsou po robotickém zákroku velmi rychlé, 
+zatímco po klasické operaci v nezanedbatelné míře hrozí komplikace, například výskyt kýly v jizvě, 
+což si často vyžádá další chirurgický zákrok. 
+Pacienti samozřejmě velmi pozitivně hodnotí také vynikající kosmetický efekt. \cite{mis_hom}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Řešení robotů}
+\label{sec:robot}
+
+V této kapitole jsou prezentováni moderní roboti, kteří jsou využíváni v praxi
+či byli představeni ve vědeckých pracích v posledních letech.
+Prvním příkladem komerčního chirurgického robota, který byl ve větší míře
+úspěšně aplikován v praxi byl robot da Vinci od společnosti Intuitive Surgical Inc.
+Da Vinci je v současnosti nejrozšířenějším systémem pro použití v MIS.
+Další roboti nejsou komerčně dostupní jako
+systémy od firmy Intuitive nebo nejsou určeny pro klasickou chirurgii s nástroji.
+Za zmínku stojí pak stojí AESOP (1994), ZEUS (1998) a Sofie (2012) - Surgeon's Operating Force-feedback Interface Eindhoven.\cite{wiki}
+
+\subsection{Intuitive da Vinci}
+\label{subsec:da_vinci}
+
+Chirurgické systémy od firmy Intuitive Surgical Inc. byly představeny na trh v roce 2000
+a od té doby se staly nejpoužívanějšími robotickými systémy pro MIS.
+Název da Vinci si zasloužil podle Leonarda da Vinci a jeho zájmu o
+studium lidské anatomie.
+Hlavní výhodou chirurgických systémů od Intuitive 
+je samotná velikost firmy, s čímž souvisí pak také lepší možnosti
+technické podpory jak softwaru tak hardwaru, dostupnost náhradních dílů
+a případně doplňků na specializované úkony.
+Navzdory nesporným výhodám, systém Da Vinci je vcelku objemný, drahý a
+náročný na zřízení v operační místnosti.
+Systémy od Intuitive jsou používány po celém světě. V ČR
+například ve Vojenské nemocnici v Praze a v univerzitních nemocnicích
+v Olomouci a Brně. \cite{mis_thesis},\cite{intuitive},\cite{mis_kraj}
+
+Systém da Vinci se skládá ze 3 hlavních podsystémů:
+Edgonomicky tvarované konzole chirurga, vozíku Vision a vozíku pacienta.
+Chirurg, který je usazen u konzole chirurga, řídí
+pohyby nástrojů a endoskopu pomocí dvou ručních ovladačů
+a sady nožních pedálů. Chirurg sleduje obraz z endoskopu na 2 LCD obrazovkách,
+což mu poskytuje pohled na anatomii pacienta a na nástroje, společně s ikonami
+a dalšími prvky uživatelského rozhraní.
+
+Vozík pacienta je umístěn u operačního stolu a má 4 ramena, která jsou
+umístěna s ohledem na cílovou anatomii pacienta.
+Endoskop se připojuje na jedno z ramen. Samotný nosný systém má
+několik stupňů volnosti přičemž ramena samotná mají podle modelu až 5 kloubů.
+
+Vozík Vision obsahuje podpůrné elektronické zařízení, jako je zdroj světla
+a zařízení zpracovávající video a obraz pro endoskop a hlavní elektronickou
+a softwarovou výpočetní jednotku. Vozík je také vybaven
+dotykovou obrazovkou na niž lze sledovat obraz z endoskopu a provádět
+nastavení systému.
+\cite{da_Vinci_handbook}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Minirobot pro zatahovací úkony}
+\label{subsec:minirobot}\label{}
+V článku \textit{A miniature robot for retraction tasks under vision assistance in Minimally Invasive Surgery} \cite{minirobot}
+je zkoumán nový přístup laparoskopické chirurgie.
+V laparoskopii i jednoduché chirurgické úkony jako je vyjmutí orgánu
+mohou být výzvou, protože jsou prováděny skrz malý vstupní otvor.
+Z tohoto důvodu je neustálá potřeba vyvíjet nové robotické nástroje
+pro zatahovací úkony.
+
+Autoři článku navrhli malého robota o průměru $12mm$ a celkové délce $52mm$
+včetně jeho magnetické základny. Navrhovaný robot má 2 stupně volnosti.
+Je vybaven bezkartáčovým motorem v magnetické základně a v rameni, 
+pro dosažení jednoduchých pohybů otáčení kolem osy a výklonu $180$\textdegree. 
+Díky jeho rozměrům může být snadno naváděn k
+požadovaného orgánu a aplikovat zpětnou výtažnou sílu až $1,53N$.
+Robot byl navržen jako sériový kinematický řetězec,
+jelikož pak může být jednoduše využito
+chirurgického trokaru (trubicový nástroj pro inserci).
+Byla navržena také varianta s kamerou $320\times240p$ $30fps$ místo drapáku.
+
+Byl proveden experiment, při kterém otestovali možnosti tohoto robota.
+Testovali maximální zdvižnou sílu a sílu drapáku, přičemž byly
+pohyby monitorovány kamerou.
+Pro vyhodnocení sil použili snímač síly s rozlišením $3,18mN$.
+Maximální naměřená zdvižná síla byla $1,53N$ a maximální síla drapáku $5,3N$.
+Hmotnost robota ($12g$) mírně ovlivňuje maximální zdvižnou sílu.
+
+Následně byla simulována simulace pro demonstraci proveditelnosti
+jednoduché procedury. Procedura se skládala z přivedení robotických 
+komponent do břišní dutiny skrz jícen. Demonstraci provedli s úspěchem,
+a proto doporučují robota k dalšímu testování na živých pacientech.
+
+\subsection{Měkký robot}
+\label{subsec:soft}
+Studie \textit{Intelligent Soft Surgical Robots for Next-Generation Minimally Invasive Surgery} \cite{intelligent_soft_robot}
+se zabývá možnostmi použití měkkých robotů v MIS.
+Měkký robot se vyznačuje lepší přizpůsobivostí a bezpečnější
+interakcí. Proto je měkká robotika označována za velmi slibnou při řešení 
+současných výzev v MIS, které je obtížné řešit současnými prostředky.
+V článku jsou analyzovány očekávané charakteristiky MIS nové generace
+z pohledu chirurgů a je komplexně shrnut nedávný pokrok
+měkkých chirurgických nástrojů ze tří různých aspektů: konstrukční
+návrh, výrobní techniky a interakce člověk-robot.
+Následně jsou diskutovány perspektivy měkkých chirurgických robotů
+nové generace, kde jsou zdůrazněny některé zajímavé možnosti.
+
+Autoři předpokládají, že další vývoj inteligentní měkké robotiky
+umožní MIS nové generace obratnou a hbitou navigaci k cíli a provádět
+diagnostické nebo terapeutické postupy bez jakýchkoli kompromisů
+v invazivnosti a nakonec být vhodným řešením pro budoucí chirurgii.
+
+\subsection{Robot s proměnlivou tuhostí}
+\label{subsec:stiffness}
+Léčba karcinomů žaludku nad $20mm$ v průměru může být dosažena
+provedením endoskopické disekce pomocí flexibilního endoskopu(optický přístroj pro zobrazení vnitřních dutin).
+Tento postup je však technicky náročný, zákrok vyžaduje delší
+operační čas a rozsáhlé školení.
+
+Pro usnadnění endoskopické disekce
+autoři článku \textit{Deployable, Variable Stiffness, Cable Driven Robot for Minimally Invasive Surgery} \cite{variable_stiffness_robot}
+vytvořili kabelem poháněného robota, který má zvýšit
+možnosti flexibilního endoskopu a zároveň se snaží
+minimalizovat dopady chirurgického zákroku.
+Pomocí nízkoprofilové nafukovací nosné konstrukce ve tvaru
+dutého šestihranu se robot může složit kolem flexibilního
+endoskopu a po dosažení cílového místa dosáhnout $73,16\%$ zvýšení objemu
+a jeho radiální tuhosti.
+Plášť kolem struktury s proměnnou tuhostí poskytuje řadu kabelů pro přenos
+síly, které se připojují ke dvěma nezávislým trubicovým koncovým efektorům,
+na které mohou být ukotveny standartní flexibilní endoskopické nástroje.
+Pomocí jednoduchého ovládacího schématu založeného na délce
+každého kabelu lze polohu nástrojů ovládat haptickými ovladači v rukou chirurga.
+V rámci studie byly změřeny síly vyvíjené jediným přístrojem a podél jedné
+osy byla pozorována maximální síla $8,29N$. Toto sestavení bylo použito během zákroku
+napodobující požadavky endoskopické disekce, kterou úspěšně provedl
+začínající uživatel.
+
+Autoři si od tohoto řešení slibují usnadnění náročné chirurgických zákroků
+a možnost jednoduše přizpůsobit robota a následně ho zrychleně vyrobit
+s nízkými náklady díky programovému přístupu návrhu.
+
+\subsection{4-DOF Origami}
+\label{subsec:4DOF}
+V článku \textit{A Novel 4-DOF Origami Grasper With an SMA-Actuation System for Minimally Invasive Surgery} \cite{4DOF}
+je prezentován 4-DOF origami drapák, pro
+vývoj miniaturizovaného chirurgického nástroje.
+s drapákem tvoří soustavu se čtyřmi stupni volnosti.
+Práce v tomto článku zkoumá kinematické mapování paralelní strukturu origami,
+což vede ke dvěma sadám ovládání, které využívají úhlové a lineární spouštěče.
+Rozsah ohybu centrální pružiny a statické vlastnosti pružiny
+jsou simulovány metodou konečných prvků. Simulované výsledky jsou 
+ověřeny experimentálně a jsou použity při návrhu
+nového ovládacího systému ze slitiny s tvarovou pamětí.
+
+Při výpočtu a simulacích modelu origami byla adresována
+možnost dalšího zmenšení modelu a velikosti ramena.
+Se sestaveným fyzickým modelem drapáku byly vyhodnoceny uchopovací síly 
+pomocí experimentálních testů.
+S výrobním procesem inteligentní kompozitní mikrostruktury
+byly vyrobeny prototypy modelu origami
+pro ověření škálovatelnosti navrženého koncepčního návrhu.
+Po vyhodnocení testů autoři dosáhli slibných výsledků
+využití origami drapáku k úchytu předmětů.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Modely a strojové učení}
+\label{sec:models}
+Stejně jako je hardware a ovládací technika neustále posouvána kupředu
+tak i software a možnosti výpočetních operací. Proto jsou v této kapitole
+popsány další zajímavé možnosti chirurgické robotiky,
+které se úplně nesoustřeďují na konstrukci robotů samotných jako
+na metody použití robotů.
+
+\subsection{Učení humanoidního robota demonstrací}
+\label{subsec:teaching}
+Tento článek \textit{Toward Teaching by Demonstration for Robot-Assisted Minimally Invasive Surgery} \cite{teaching_humanoid}
+byl inspirován omezenými možnostmi manipulace při laparoskopické chirurgii
+při kinematických omezeních v místě vstupu.
+
+Osvojení manipulačních dovedností z otevřené operace poskytuje
+flexibilnější přístup k orgánům a díky tomu by mohl chirurgický robot
+pracovat velmi inteligentním způsobem.
+Během výuky demonstrací
+je možno přenést manipulační dovednosti člověka na humanoidního
+robota pomocí aktivního učení během několika demonstrovaných zákroků.
+
+Tato práce si klade za cíl přenést pohybové dovednosti z mnoha
+lidských demonstrací v otevřené chirurgii na robotické manipulátory
+v roboticky asistované MIS pomocí učení demonstrací.
+Při provádění naučených dovedností pomocí robota pro MIS by však mělo
+být respektováno kinematické omezení.
+Autoři navrhují novou metodiku integrací technik
+kognitivního učení a vyvinutých řídících technik, což umožňuje robotu
+být vysoce inteligentní, aby se naučil dovednosti starších chirurgů
+a v budoucnu mohl provádět naučené chirurgické operace
+v semiautonomní chirurgii.
+Nakonec byly provedeny experimenty k ověření účinnosti navržené strategie
+a výsledky demonstrují schopnost systému přenést lidské manipulační
+dovednosti na robota v MIS.
+
+\subsection{Učící se robot pro řízení kamer}
+\label{seubsec:learning}
+Autoři článku \textit{A learning robot for cognitive camera control in minimally invasive surgery} \cite{self_learning}
+demonstrují autonomního robota pro navádění kamer.
+Robot se sám učí, je kontextově citlivý a použitelný pro MIS.
+Většina chirurgických robotů dnes jsou telemanipulátory
+bez autonomních schopností. Autonomní systémy byly vyvinuty
+pro laparoskopické navádění kamerou, avšak dodržují jednoduchá
+pravidla a nepřizpůsobují se chování konkrétním úkolům, postupům
+nebo chirurgům.
+
+V článku je prezentována metodika, která umožňuje robotům s různou
+kinematikou vnímat své prostředí, interpretovat je na bázi znalostí
+a provádět akce s vědomím kontextu. V rámci výcviku bylo
+jedním chirurgem provedeno dvacet operací s naváděním kamery člověkem.
+Následně bylo experimentálně vyhodnoceno kognitivní ovládání
+robotické kamery.
+Systém VIKY EP a robot KUKA LWR 4 byly trénovány na datech z
+manuálního navádění kamery po dokončení zaučení chirurga.
+Podruhé byla k výcviku LWR použita pouze data z VIKY EP
+a následně data z trénování LWR byly použity na nové učení LWR.
+
+Doba trvání každé operace se s narůstajícími zkušenostmi robota
+zkracovala z $1704s \pm 244s$ na $1406s \pm 112s$ a $1197s$. 
+Kvalita navádění kamery (dobrá/neutrální/špatná) se zlepšila 
+z $38,6/53,4/7,9$ na $49,4/46,3/4,1\%$ a $56,2/41,0/2,8\%$.
+Kognitivní kamerový robot tedy zlepšil svůj výkon díky zkušenostem
+a položil tak základ pro novou generaci kognitivních chirurgických
+robot, které se přizpůsobí potřebám chirurga.
+
+\subsection{Nový inteligentní systém pro semi-automatické MIS} %15 - new intelligent laparoscopic system
+\label{subsec:automa}
+Inteligentní chirurgičtí roboti mají velký potenciál ulevit
+chirurgům při únavných zákrocích. U MIS přidání inteligentních
+metod řízení k řízení laparoskopie má velký potenciál.
+Článek \textit{Development of a novel intelligent laparoscope system for semi-automatic minimally invasive surgery} \cite{intelligent_system}
+se tedy věnuje metodám jak přenést část úkonů na robota,
+aby se chirurg mohl plně soustředit na svou práci.
+Autoři upravili Jakobiho matici nezávislou na hloubce tak, aby
+byla vhodná pro vyjádření pohybového omezení insertního nástroje v laparoskopii.
+Byla navržena metoda inteligentního a autonomního nastavení
+zorného pole chirurga, která umožňuje sledovat a předvídat
+trajektorii pohybu chirurgických nástrojů.
+
+Výsledek experimentu ukazuje, že navržená metoda by mohla
+realizovat sledování chirurgických nástrojů a nastavení zorného
+pole chirurga při zákroku autonomně. V případě kluze lze
+předvídat trajektorii pohybu chirurgických nástrojů.
+Inteligentní laparoskopický systém by mohl zlepšit inteligentní
+úroveň systému chirurgického robota. Vzhledem k tomu,
+že chirurgovi je poskytnuta "třetí ruka" je navrhovaný systém
+značným vylepšením poloutonomního systému chirurgického robota.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Závěr}
+\label{sec:zaver}
+Tato zpráva slouží jako krátké nastínění roboticky asistované chirurgie.
+V \ref{sec:robot} kapitole  je prezentováno současné využití robotů v MIS
+a několik odborných návrhů z posledních let. V kapitole \ref{sec:models}
+je pak zmíněno pár softwarových metod řešení či usnadnění chirurgických zákroků.
+
+I přesto, že je dnes trh dominován firmou Intuitive Surgical Inc.,
+vidím v robotické chirurgii velký potenciál, a to právě kvůli množství
+nově vyvíjených technologií, jak v oblasti konstrukce robotů, tak
+jejich řídících metod a vybavení. Se stále menšími součástkami a výkonnější
+elektronikou je možné se už zamýšlet nad možností plně autonomního
+"výsadkového" chirurgického robota.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% References
+\newpage
+\begingroup
+\makeatletter
+\renewcommand\section{\@startsection {section}{99}{\z@}%
+                                   {-3.5ex \@plus -1ex \@minus -.2ex}%
+                                   {4.5ex \@plus.2ex}%
+                                   {\large\bfseries}}
+\makeatother
+
+
+\bibliography{references}{}
+\bibliographystyle{unsrt}
+\endgroup
+
+\end{document}
